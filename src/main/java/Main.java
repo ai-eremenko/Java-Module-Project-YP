@@ -4,17 +4,25 @@ public class Main {
     public static void main(String[] args) {
         Race race = new Race();
         Scanner scanner = new Scanner(System.in);
+
         for (int carNumber = 1; carNumber <= 3; carNumber++) {
             System.out.println("Введите название машины №" + carNumber + ":");
             String carName = scanner.next();
-            int carSpeed;
-            while (true) {
+
+            boolean isReady = false;
+            int carSpeed = 0;
+            while (!isReady) {
                 System.out.println("Введите скорость машины №" + carNumber + ":");
-                carSpeed = scanner.nextInt();
-                if (carSpeed <= 250 && carSpeed > 0) {
-                    break;
+                if (scanner.hasNextInt()) {
+                    carSpeed = scanner.nextInt();
+                    if (carSpeed > 0 && carSpeed <= 250) {
+                        isReady = true;
+                    } else {
+                        System.out.println("Неправильная скорость. Скорость должна быть целым числом от 1 до 250.");
+                    }
                 } else {
-                    System.out.println("Неправильная скорость");
+                    System.out.println("Неправильный ввод. Пожалуйста, введите целое число.");
+                    scanner.next();
                 }
             }
             race.addNewCar(new Car(carName, carSpeed));
